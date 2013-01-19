@@ -1,4 +1,4 @@
-module Raudi
+module RSynth
   class Note
     ChromaticInterval = 2**(1.0/12)
     ChromaticNotes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
@@ -17,7 +17,7 @@ module Raudi
         %w(major_seventh M7 diminished_octave d8),
         %w(perfect_octave octave P8 augmented_seventh A7)
     ]
-    include Raudi::Functions
+    include RSynth::Functions
 
     attr_reader :note, :octave, :freq
 
@@ -78,8 +78,8 @@ module Raudi
     def self.retrieve(note, octave)
       note.upcase!
       name = "#{note.sub('#', 'Sharp')}#{octave}"
-      Raudi.const_set(name, Note.new(note, octave)) unless Raudi.const_defined?(name)
-      Raudi.const_get(name)
+      RSynth.const_set(name, Note.new(note, octave)) unless RSynth.const_defined?(name)
+      RSynth.const_get(name)
     end
 
     # Define the interval methods...

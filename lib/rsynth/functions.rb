@@ -1,21 +1,21 @@
-module Raudi
+module RSynth
   module Functions
     def combine(type, other)
       case type
         when :add, :plus
-          Raudi::Combiner.new(self, other) { |a, b| a + b }
+          RSynth::Combiner.new(self, other) { |a, b| a + b }
         when :sub, :subtract, :minus
-          Raudi::Combiner.new(self, other) { |a, b| a - b }
+          RSynth::Combiner.new(self, other) { |a, b| a - b }
         when :div, :divide
-          Raudi::Combiner.new(self, other) { |a, b| a / b }
+          RSynth::Combiner.new(self, other) { |a, b| a / b }
         when :mul, :multiply, :times
-          Raudi::Combiner.new(self, other) { |a, b| a * b }
+          RSynth::Combiner.new(self, other) { |a, b| a * b }
         when :exp, :exponent, :pow, :power
-          Raudi::Combiner.new(self, other) { |a, b| a ** b }
+          RSynth::Combiner.new(self, other) { |a, b| a ** b }
         when :mod, :modulo, :rem, :remainder
-          Raudi::Combiner.new(self, other) { |a, b| a % b }
+          RSynth::Combiner.new(self, other) { |a, b| a % b }
         when :mix
-          Raudi::Combiner.new(self, other) do |a, b|
+          RSynth::Combiner.new(self, other) do |a, b|
             # Normalise between 0 and 1
             a = (a + 1) / 2
             b = (b + 1) / 2
@@ -31,7 +31,7 @@ module Raudi
     def phase_shift(offset=nil)
       offset = Proc.new{ |time| yield time } if block_given?
       raise 'No offset or block given' if offset.nil?
-      Raudi::PhaseShifer.new(self, offset)
+      RSynth::PhaseShifer.new(self, offset)
     end
 
     # won't work for numeric or proc (unless we override but there'd be a huge performance hit)
@@ -74,7 +74,7 @@ module Raudi
 end
 
 class Proc
-  include Raudi::Functions
+  include RSynth::Functions
 
   def value_at(time)
     self.call(time)
@@ -83,7 +83,7 @@ end
 
 # Add mixins to int and float :O
 class Numeric
-  include Raudi::Functions
+  include RSynth::Functions
 
   def value_at(time)
     self

@@ -1,16 +1,16 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
 
-require 'raudi/version'
+require 'rsynth/version'
 
 Gem::Specification.new do |s|
-  s.name        = "raudi"
-  s.version     = Raudi::VERSION
+  s.name        = "rsynth"
+  s.version     = RSynth::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = %w(James Lawrence)
   s.email       = %w(james@kukee.co.uk)
 
-  s.summary = "Raudi aims to be a simple to use audio synthesis library for use in ruby"
+  s.summary = "Rsynth aims to be a simple to use audio synthesis library for use in ruby"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")

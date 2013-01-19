@@ -1,4 +1,4 @@
-module Raudi
+module RSynth
   module Pipe
     class Pipeline
       NumBuffers = 2 # Number of buffers we keep in our ring buffer
@@ -46,26 +46,26 @@ module Raudi
         if @seqpos.all?{|s| s > 0}
           @buffers.push(@generated.shift)
           @seqpos.map!{|i| i - 1}
-          @time += FramesPerBuffer * Raudi::TimeStep
+          @time += FramesPerBuffer * RSynth::TimeStep
         end
       end
 
       def generate
         @time = 0
         @generate_time = 0
-        timePerLoop = FramesPerBuffer * Raudi::TimeStep
+        timePerLoop = FramesPerBuffer * RSynth::TimeStep
         @buffers = 10.times.map{Array.new(FramesPerBuffer)}
         @generated = []
         @seqpos = @sequence.length.times.map{0}
         @sequence.each { |s| s.start(self) }
         while not @stopped
           if @generate_time < @length
-            sleep(Raudi::TimeStep) while (@buffers.length == 0 or @generated.length >= NumBuffers) and not @stopped
+            sleep(RSynth::TimeStep) while (@buffers.length == 0 or @generated.length >= NumBuffers) and not @stopped
             buf = @buffers.shift
-            len = @generate_time + timePerLoop > @length ? (@length - @generate_time) / Raudi::TimeStep : FramesPerBuffer
+            len = @generate_time + timePerLoop > @length ? (@length - @generate_time) / RSynth::TimeStep : FramesPerBuffer
             len.times do |i|
               buf[i] = @source.value_at(@generate_time)
-              @generate_time += Raudi::TimeStep
+              @generate_time += RSynth::TimeStep
             end
             (FramesPerBuffer - len).times do |i|
               buf[i] = 0
@@ -77,7 +77,7 @@ module Raudi
       end
 
       def to_s
-        "Raudi::Pipe::Pipeline source=#{@source},seq=#{@sequence}"
+        "RSynth::Pipe::Pipeline source=#{@source},seq=#{@sequence}"
       end
     end
   end

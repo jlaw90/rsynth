@@ -7,7 +7,7 @@ require_relative 'oscillator'
 require_relative 'notes'
 require_relative 'scales'
 
-module Raudi
+module RSynth
   SampleRate = 22050
   TimeStep = 1.0/SampleRate
   Channels = 1

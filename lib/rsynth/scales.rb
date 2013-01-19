@@ -1,4 +1,4 @@
-module Raudi
+module RSynth
   class Note
     # Add some methods to the note class :O
     def major_scale

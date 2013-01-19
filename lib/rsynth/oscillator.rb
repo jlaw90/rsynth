@@ -1,11 +1,11 @@
-module Raudi
+module RSynth
   class Oscillator
     PI2 = Math::PI*2
     TableLength = 1024
     SinTable = TableLength.times.map{|i| Math.sin((PI2 * i) / TableLength)}
     CosTable = TableLength.times.map{|i| Math.cos((PI2 * i) / TableLength)}
 
-    include Raudi::Functions
+    include RSynth::Functions
 
     attr_accessor :freq, :func
 
@@ -18,7 +18,7 @@ module Raudi
     def value_at(time)
       f = @freq.value_at(time)
       i = @phase
-      @phase = (@phase + (f.to_f / Raudi::SampleRate)) % 1.0
+      @phase = (@phase + (f.to_f / RSynth::SampleRate)) % 1.0
       case @func
         when :sin, :sine then SinTable[(i*TableLength).to_i]
         when :cos, :cosine then CosTable[(i*TableLength).to_i]

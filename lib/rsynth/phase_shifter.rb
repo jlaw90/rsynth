@@ -1,6 +1,6 @@
-module Raudi
+module RSynth
   class PhaseShifter
-    include Raudi::Functions
+    include RSynth::Functions
     attr_accessor :source, :offset
 
     def initialize(source, offset=nil)

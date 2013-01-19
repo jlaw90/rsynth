@@ -1,13 +1,13 @@
 require 'ffi-portaudio'
 
-module Raudi
+module RSynth
   module Pipe
     class PortAudio
       include ::FFI::PortAudio
 
       def initialize
         wrap_call('initialise portaudio') { | | API.Pa_Initialize() }
-        @buf = FFI::Buffer.new(:float, Raudi::Pipe::Pipeline::FramesPerBuffer, true) # Create our native buffer
+        @buf = FFI::Buffer.new(:float, RSynth::Pipe::Pipeline::FramesPerBuffer, true) # Create our native buffer
       end
 
       def start(pipeline)
@@ -47,7 +47,7 @@ module Raudi
         # Create parameters for the output stream
         outopts = API::PaStreamParameters.new
         outopts[:device] = outIdx
-        outopts[:channelCount] = Raudi::Channels
+        outopts[:channelCount] = RSynth::Channels
         outopts[:sampleFormat] = API::Float32
         outopts[:suggestedLatency] = outDev[:defaultHighOutputLatency]
         outopts[:hostApiSpecificStreamInfo] = nil
@@ -59,8 +59,8 @@ module Raudi
               @stream, # Stream
               nil, # Input options
               outopts, # Output options
-              Raudi::SampleRate, # the sample rate
-              Raudi::Pipe::Pipeline::FramesPerBuffer, # frames per buffer
+              RSynth::SampleRate, # the sample rate
+              RSynth::Pipe::Pipeline::FramesPerBuffer, # frames per buffer
               API::PrimeOutputBuffersUsingStreamCallback, # flags
               @callback, # Callback
               nil # User data

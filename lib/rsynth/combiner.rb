@@ -1,6 +1,6 @@
-module Raudi
+module RSynth
   class Combiner
-    include Raudi::Functions
+    include RSynth::Functions
     attr_accessor :a, :b
 
     def initialize(a, b, proc=nil)
