@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.version     = RSynth::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = %w(James Lawrence)
-  s.email       = %w(james@kukee.co.uk)
+  s.email       = %w(jlaw90@hotmail.com)
 
   s.summary = "Rsynth aims to be a simple to use audio synthesis library for use in ruby"
 
